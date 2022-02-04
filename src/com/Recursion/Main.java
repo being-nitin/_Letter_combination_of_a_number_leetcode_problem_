@@ -20,9 +20,11 @@ public class Main {
     Input: digits = "2"
     Output: ["a","b","c"]
 	 */
+        // printing all the corresponding answers.
         letterCombination("", "12");
+        ArrayList<String> list = letterCombinationArray("","12");
+        System.out.println(list);
     }
-
     public static void letterCombination(String p, String up) {
         if (up.isEmpty()) {
             System.out.println(p);
@@ -34,5 +36,21 @@ public class Main {
             char ch = (char) ('a' + i);
             letterCombination(p + ch, up.substring(1));
         }
+    }
+    // Return the ans in Arraylist.
+    public static ArrayList<String> letterCombinationArray(String p, String up) {
+        if (up.isEmpty()) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(p);
+            return list;
+        }
+        // in this we have subtracted digit with '0 to make "1" to 1.
+        int digit = up.charAt(0) - '0';
+        ArrayList<String> ans = new ArrayList<>();
+        for (int i = (digit - 1) * 3; i < digit * 3; i++) {
+            char ch = (char) ('a' + i);
+            ans.addAll(letterCombinationArray(p + ch, up.substring(1)));
+        }
+        return ans;
     }
 }
