@@ -22,9 +22,13 @@ public class Main {
 	 */
         // printing all the corresponding answers.
         letterCombination("", "12");
-        ArrayList<String> list = letterCombinationArray("","12");
+        ArrayList<String> list = letterCombinationArray("", "12");
         System.out.println(list);
+        //count the number of elements.
+        System.out.println(letterCombinationCount("","12"));
+
     }
+
     public static void letterCombination(String p, String up) {
         if (up.isEmpty()) {
             System.out.println(p);
@@ -37,6 +41,7 @@ public class Main {
             letterCombination(p + ch, up.substring(1));
         }
     }
+
     // Return the ans in Arraylist.
     public static ArrayList<String> letterCombinationArray(String p, String up) {
         if (up.isEmpty()) {
@@ -52,5 +57,18 @@ public class Main {
             ans.addAll(letterCombinationArray(p + ch, up.substring(1)));
         }
         return ans;
+    }
+
+    public static int letterCombinationCount(String p, String up) {
+        if (up.isEmpty()) {
+            return 1;
+        }// in this we have subtracted digit with '0 to make "1" to 1.
+        int digit = up.charAt(0) - '0';
+        int count = 0;
+        for (int i = (digit - 1) * 3; i < digit * 3; i++) {
+            char ch = (char) ('a' + i);
+            count = count + letterCombinationCount(p + ch, up.substring(1));
+        }
+        return count;
     }
 }
